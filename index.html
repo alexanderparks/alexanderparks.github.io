@@ -1,0 +1,931 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Alexander Parks' Personal Website" />
+    <title>Alexander Parks' Personal Website</title>
+
+    <style>
+      :root {
+        --bg: #0b1020;
+        --panel: rgba(255, 255, 255, 0.06);
+        --panel-2: rgba(255, 255, 255, 0.10);
+        --text: rgba(255, 255, 255, 0.92);
+        --muted: rgba(255, 255, 255, 0.72);
+        --faint: rgba(255, 255, 255, 0.55);
+        --line: rgba(255, 255, 255, 0.14);
+
+        --accent: #7dd3fc;   /* sky */
+        --accent2: #a78bfa;  /* violet */
+
+        --shadow: 0 12px 35px rgba(0, 0, 0, 0.45);
+        --radius: 18px;
+        --max: 1040px;
+
+        --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
+          "Courier New", monospace;
+        --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial,
+          "Apple Color Emoji", "Segoe UI Emoji";
+      }
+
+      /* Light mode (automatic if the OS prefers light) */
+      @media (prefers-color-scheme: light) {
+        :root {
+          --bg: #f7fafc;
+          --panel: rgba(2, 6, 23, 0.05);
+          --panel-2: rgba(2, 6, 23, 0.08);
+          --text: rgba(2, 6, 23, 0.92);
+          --muted: rgba(2, 6, 23, 0.72);
+          --faint: rgba(2, 6, 23, 0.55);
+          --line: rgba(2, 6, 23, 0.12);
+          --shadow: 0 12px 35px rgba(2, 6, 23, 0.10);
+        }
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        margin: 0;
+        font-family: var(--sans);
+        color: var(--text);
+        background:
+          radial-gradient(900px 500px at 18% 12%, rgba(125, 211, 252, 0.25), transparent 60%),
+          radial-gradient(700px 420px at 82% 18%, rgba(167, 139, 250, 0.22), transparent 55%),
+          radial-gradient(1200px 700px at 40% 95%, rgba(125, 211, 252, 0.10), transparent 60%),
+          var(--bg);
+        line-height: 1.55;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      a:hover {
+        text-decoration: underline;
+        text-underline-offset: 3px;
+      }
+
+      .wrap {
+        max-width: var(--max);
+        margin: 0 auto;
+        padding: 28px 18px 70px;
+      }
+
+      /* Top nav */
+      .nav {
+        position: sticky;
+        top: 0;
+        z-index: 50;
+        padding: 12px 0;
+        backdrop-filter: blur(10px);
+        background: linear-gradient(to bottom, rgba(0, 0, 0, 0.25), transparent);
+      }
+
+      @media (prefers-color-scheme: light) {
+        .nav {
+          background: linear-gradient(to bottom, rgba(247, 250, 252, 0.85), transparent);
+        }
+      }
+
+      .nav-inner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        max-width: var(--max);
+        margin: 0 auto;
+        padding: 0 18px;
+      }
+
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-weight: 700;
+        letter-spacing: 0.2px;
+      }
+
+      .badge {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 34px;
+        height: 34px;
+        border-radius: 12px;
+        background: linear-gradient(
+          135deg,
+          rgba(125, 211, 252, 0.35),
+          rgba(167, 139, 250, 0.35)
+        );
+        border: 1px solid var(--line);
+        box-shadow: var(--shadow);
+        font-family: var(--mono);
+        font-size: 13px;
+      }
+
+      .nav-links {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+        color: var(--muted);
+        font-size: 14px;
+      }
+
+      .nav-links a {
+        padding: 8px 10px;
+        border-radius: 12px;
+      }
+
+      .nav-links a:hover {
+        background: var(--panel);
+        text-decoration: none;
+      }
+
+      /* Hero */
+      .hero {
+        margin-top: 18px;
+        border: 1px solid var(--line);
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.04));
+        border-radius: calc(var(--radius) + 6px);
+        box-shadow: var(--shadow);
+        overflow: hidden;
+      }
+
+      @media (prefers-color-scheme: light) {
+        .hero {
+          background: linear-gradient(180deg, rgba(2, 6, 23, 0.04), rgba(2, 6, 23, 0.02));
+        }
+      }
+
+      .hero-inner {
+        display: grid;
+        grid-template-columns: 160px 1fr;
+        gap: 18px;
+        padding: 22px;
+        align-items: stretch;
+      }
+
+      .hero-photo {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+      }
+
+      .hero-photo .btn {
+        width: 100%;
+        max-width: 180px;
+        justify-content: center;
+      }
+
+      .hero-content {
+        display: flex;
+        flex-direction: column;
+        min-height: 100%;
+      }
+
+      .hero-top {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 14px;
+        flex-wrap: wrap;
+      }
+
+      .hero-top h1 {
+        margin: 0;
+      }
+
+      .hero-bottom {
+        margin-top: auto;
+        display: flex;
+        justify-content: center;
+      }
+
+      @media (max-width: 620px) {
+        .hero-inner {
+          grid-template-columns: 1fr;
+          text-align: center;
+        }
+
+        .hero-top {
+          justify-content: center;
+        }
+
+        .hero-top .btn {
+          width: 100%;
+          justify-content: center;
+        }
+
+        .contact-row {
+          justify-content: center;
+        }
+
+        .headshot {
+          margin: 0 auto;
+        }
+      }
+
+      .headshot {
+        width: 140px;
+        height: 140px;
+        border-radius: 28px;
+        border: 1px solid var(--line);
+        background: var(--panel);
+        box-shadow: 0 10px 28px rgba(0, 0, 0, 0.25);
+        overflow: hidden;
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: var(--mono);
+        color: var(--faint);
+        user-select: none;
+      }
+
+      .headshot img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+      }
+
+      .hero h1 {
+        margin: 0 0 6px;
+        font-size: 34px;
+        letter-spacing: -0.5px;
+        line-height: 1.15;
+      }
+
+      .sub {
+        margin: 0 0 14px;
+        color: var(--muted);
+        max-width: none;
+      }
+
+      .chips {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin: 12px 0 0;
+      }
+
+      .chip {
+        border: 1px solid var(--line);
+        background: var(--panel);
+        padding: 6px 10px;
+        border-radius: 999px;
+        font-size: 13px;
+        color: var(--muted);
+      }
+
+      /* Shrink-wrap the contact links so they center as a group */
+      .contact-row {
+        display: inline-flex;
+        flex-wrap: wrap;
+        gap: 10px 14px;
+        justify-content: center;
+      }
+
+      .contact-row a {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 10px;
+        border-radius: 12px;
+        background: transparent;
+        border: 1px solid transparent;
+      }
+
+      .contact-row a:hover {
+        background: var(--panel);
+        border-color: var(--line);
+        text-decoration: none;
+      }
+
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 10px 14px;
+        border-radius: 14px;
+        border: 1px solid var(--line);
+        background: var(--panel);
+        color: var(--text);
+        font-weight: 600;
+        font-size: 14px;
+        text-decoration: none;
+      }
+
+      .btn:hover {
+        text-decoration: none;
+        background: var(--panel-2);
+      }
+
+      .btn.primary {
+        background: linear-gradient(135deg, rgba(125, 211, 252, 0.25), rgba(167, 139, 250, 0.25));
+        border-color: rgba(125, 211, 252, 0.35);
+      }
+
+      /* Sections */
+      .grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 14px;
+        margin-top: 18px;
+      }
+
+      section.card {
+        border: 1px solid var(--line);
+        background: var(--panel);
+        border-radius: var(--radius);
+        box-shadow: 0 10px 28px rgba(0, 0, 0, 0.18);
+        padding: 18px 18px 14px;
+      }
+
+      @media (prefers-color-scheme: light) {
+        section.card {
+          box-shadow: 0 10px 28px rgba(2, 6, 23, 0.06);
+        }
+      }
+
+      .card h2 {
+        margin: 0 0 10px;
+        font-size: 18px;
+        letter-spacing: -0.2px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .card p {
+        margin: 0 0 10px;
+        color: var(--muted);
+      }
+
+      .divider {
+        height: 1px;
+        background: var(--line);
+        margin: 12px 0;
+      }
+
+      /* Resume-like blocks/sections */
+      .item {
+        padding: 10px 0;
+        border-top: 1px solid var(--line);
+      }
+
+      .item:first-of-type {
+        border-top: none;
+        padding-top: 2px;
+      }
+
+      .item-head {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+
+      .item-title {
+        font-weight: 700;
+        margin: 0;
+      }
+
+      .item-meta {
+        color: var(--faint);
+        font-size: 13px;
+        white-space: nowrap;
+        font-family: var(--mono);
+      }
+
+      ul {
+        margin: 10px 0 0 18px;
+        color: var(--muted);
+      }
+
+      li {
+        margin: 6px 0;
+      }
+
+      .two-col {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 14px;
+      }
+
+      @media (max-width: 840px) {
+        .two-col {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      .skills {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .skill-row {
+        padding: 10px 12px;
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        background: rgba(255, 255, 255, 0.03);
+      }
+
+      @media (prefers-color-scheme: light) {
+        .skill-row {
+          background: rgba(2, 6, 23, 0.03);
+        }
+      }
+
+      .skill-row strong {
+        display: block;
+        margin-bottom: 4px;
+      }
+
+      .footer {
+        margin-top: 24px;
+        color: var(--faint);
+        font-size: 13px;
+        text-align: center;
+      }
+
+      /* Icons */
+      .icon {
+        width: 18px;
+        height: 18px;
+        display: inline-block;
+      }
+
+      .icon svg {
+        width: 18px;
+        height: 18px;
+        display: block;
+      }
+
+      .sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+      }
+
+      /* Want to make project titles clearly look like hyperlinks */
+      #projects .item-title a:link,
+      #projects .item-title a:visited {
+        color: var(--accent);
+        text-decoration: underline;
+        text-underline-offset: 3px;
+        text-decoration-thickness: 2px;
+        cursor: pointer;
+      }
+
+      #projects .item-title a:hover {
+        text-decoration-thickness: 3px;
+        color: var(--accent);
+      }
+
+      #projects .item-title a:focus-visible {
+        outline: 2px solid var(--accent);
+        outline-offset: 3px;
+        border-radius: 8px;
+        color: var(--accent);
+      }
+    </style>
+  </head>
+
+  <body>
+    <header class="nav" aria-label="Primary">
+      <div class="nav-inner">
+        <div class="brand">
+          <span class="badge">AP</span>
+          <span>Alexander Parks</span>
+        </div>
+
+        <nav class="nav-links">
+          <a href="#education">Education</a>
+          <a href="#skills">Skills</a>
+          <a href="#experience">Experience</a>
+          <a href="#projects">Projects</a>
+          <a href="#leadership">Leadership</a>
+          <a href="#honors">Honors</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="wrap">
+      <section class="hero" id="top">
+        <div class="hero-inner">
+          <div class="hero-photo">
+            <div class="headshot">
+              <img src="assets/headshot.jpg" alt="Alexander Parks" />
+            </div>
+            <a class="btn primary" href="resume.pdf" download>Resume (PDF)</a>
+          </div>
+
+          <div class="hero-content">
+            <div class="hero-top">
+              <h1>Alexander Parks</h1>
+            </div>
+
+            <div class="hero-main">
+              <p></p>
+              <p class="sub">
+                Hello! My name is Alex Parks and I am currently a first-year M.S. in Computer Science
+                student at UT-Austin.
+              </p>
+              <p class="sub">
+                My main academic and professional interests include statistics, data science, machine
+                learning, artificial intelligence, and actuarial science. I am currently searching
+                for internship or research opportunities in these areas for Summer/Fall 2026. Feel
+                free to check out the rest of my profile and contact me via email, phone, or LinkedIn
+                message!
+              </p>
+            </div>
+
+            <div class="hero-bottom">
+              <div class="contact-row" aria-label="Contact links">
+                <a href="tel:+18323737056">
+                  <span class="icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none">
+                      <path
+                        d="M6.6 10.8c1.3 2.5 3.2 4.4 5.7 5.7l1.9-1.9c.3-.3.8-.4 1.2-.2 1.2.4 2.4.6 3.7.6.7 0 1.2.5 1.2 1.2V20c0 .7-.5 1.2-1.2 1.2C10.3 21.2 2.8 13.7 2.8 4.8 2.8 4.1 3.3 3.6 4 3.6h3.8c.7 0 1.2.5 1.2 1.2 0 1.3.2 2.5.6 3.7.1.4 0 .9-.2 1.2L6.6 10.8z"
+                        stroke="currentColor"
+                        stroke-width="1.8"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                    </svg>
+                  </span>
+                  <span>832-373-7056</span>
+                </a>
+
+                <a href="mailto:alexanderparks@utexas.edu">
+                  <span class="icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none">
+                      <path
+                        d="M4 6.5h16v11H4v-11z"
+                        stroke="currentColor"
+                        stroke-width="1.8"
+                        stroke-linejoin="round"
+                      />
+                      <path
+                        d="M4.5 7l7.5 6 7.5-6"
+                        stroke="currentColor"
+                        stroke-width="1.8"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                    </svg>
+                  </span>
+                  <span>alexanderparks@utexas.edu</span>
+                </a>
+
+                <a
+                  href="https://www.linkedin.com/in/alexander-parks1/"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <span class="icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none">
+                      <path
+                        d="M4.5 4.5h15v15h-15v-15z"
+                        stroke="currentColor"
+                        stroke-width="1.8"
+                      />
+                      <path
+                        d="M8.1 10.1v6.6"
+                        stroke="currentColor"
+                        stroke-width="1.8"
+                        stroke-linecap="round"
+                      />
+                      <path
+                        d="M8.1 7.5h0.01"
+                        stroke="currentColor"
+                        stroke-width="3.2"
+                        stroke-linecap="round"
+                      />
+                      <path
+                        d="M11.3 16.7v-3.7c0-1.6 1-2.8 2.6-2.8 1.4 0 2.3.9 2.3 2.7v3.8"
+                        stroke="currentColor"
+                        stroke-width="1.8"
+                        stroke-linecap="round"
+                      />
+                    </svg>
+                  </span>
+                  <span>LinkedIn</span>
+                </a>
+
+                <a href="https://github.com/alexanderparks" target="_blank" rel="noreferrer">
+                  <span class="icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none">
+                      <path
+                        d="M12 2.6a9.6 9.6 0 0 0-3 18.7c.5.1.7-.2.7-.5v-1.8c-2.8.6-3.4-1.2-3.4-1.2-.5-1.2-1.2-1.5-1.2-1.5-1-.7.1-.7.1-.7 1.1.1 1.7 1.1 1.7 1.1 1 .1.8 2 .8 2 .9 1.6 2.4 1.1 3 .9.1-.7.4-1.1.7-1.3-2.2-.3-4.5-1.1-4.5-5 0-1.1.4-2 1-2.7-.1-.3-.4-1.4.1-2.8 0 0 .8-.3 2.8 1a9.5 9.5 0 0 1 5.1 0c2-1.3 2.8-1 2.8-1 .5 1.4.2 2.5.1 2.8.6.7 1 1.6 1 2.7 0 3.9-2.3 4.7-4.5 5 .4.3.7 1 .7 2.1v3.1c0 .3.2.6.7.5A9.6 9.6 0 0 0 12 2.6z"
+                        stroke="currentColor"
+                        stroke-width="1.3"
+                        stroke-linejoin="round"
+                      />
+                    </svg>
+                  </span>
+                  <span>GitHub</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div class="grid">
+        <section class="card" id="education">
+          <h2>Education</h2>
+
+          <div class="item">
+            <div class="item-head">
+              <p class="item-title">
+                The University of Texas at Austin - Austin, TX<br />
+                <i>Master of Science, Computer Science</i>
+              </p>
+              <div class="item-meta">August 2025 - May 2027 (expected)</div>
+            </div>
+            <ul>
+              <li>GPA: 4.0</li>
+              <li>
+                Relevant Coursework: Machine Learning, Case Studies in Machine Learning, Android
+                Programming
+              </li>
+            </ul>
+          </div>
+
+          <div class="item">
+            <div class="item-head">
+              <p class="item-title">
+                The University of Texas at Austin - Austin, TX<br />
+                <i>Bachelor of Science, Computer Science</i><br />
+                <i>Bachelor of Science, Mathematics</i>
+              </p>
+              <div class="item-meta">August 2021 - May 2025</div>
+            </div>
+            <ul>
+              <li>GPA: 3.74</li>
+              <li>
+                Relevant Coursework: Principles of Machine Learning I/II, Neural Networks,
+                Trustworthy Machine Learning, Probability I, Applied Statistics, Predictive
+                Analytics, Linear Algebra and Matrix Theory, Data Management, NLP Semantics, Intro
+                to Mathematical Statistics, Intro to Stochastic Processes, Algorithms and
+                Complexity, Data Structures, Software Engineering, Principles of Computer Systems
+                (OS), Computer Organization and Architecture, Geometry of Space (FRI), Intro to
+                Real Analysis, Differential Equations with Linear Algebra
+              </li>
+              <li>
+                Activities and societies: Machine Learning and Data Science Club (MLDS), Computer
+                Science Transfers' Society (CSTS), Hispanic Association of Computer Scientists
+                (HACS), Freshman Research Initiative (FRI), Texas Iron Spikes, UT RecSports
+                Intramural Sports
+              </li>
+            </ul>
+          </div>
+        </section>
+
+        <section class="card" id="skills">
+          <h2>Skills</h2>
+
+          <div class="skills">
+            <div class="skill-row">
+              <strong>Data Analysis/Data Science</strong>
+              Python, R, RStudio, Pandas, Scikit-Learn, TensorFlow, PyTorch, NumPy, Matplotlib, SQL,
+              PostgreSQL, MySQL Workbench, Microsoft Excel
+            </div>
+            <div class="skill-row">
+              <strong>Software Engineering</strong>
+              Java, C, TypeScript, HTML, CSS, React, Flask, Node.js, Postman API, Jira
+            </div>
+            <div class="skill-row">
+              <strong>Cloud</strong>
+              Amazon Web Services (AWS), Google Cloud Platform (GCP)
+            </div>
+            <div class="skill-row">
+              <strong>Miscellaneous</strong>
+              Git, GitHub, GitLab, VS Code, Microsoft Word, Microsoft PowerPoint
+            </div>
+          </div>
+        </section>
+
+        <section class="card" id="experience">
+          <h2>Experience</h2>
+
+          <div class="item">
+            <div class="item-head">
+              <p class="item-title">
+                Regions Bank - Atlanta, GA<br />
+                <i>Software Engineer Intern</i>
+              </p>
+              <div class="item-meta">May 2024 - August 2024</div>
+            </div>
+            <ul>
+              <li>
+                5+ new portal components using TypeScript, C, and AWS CLI in an Agile framework for
+                RelationshipIQ, a cloud-native onboarding platform for prospective Regions Bank
+                business clients
+              </li>
+              <li>Generated 100+ unit and coverage tests for new components and behavior implemented into the platform</li>
+              <li>Conducted research on the machine learning and artificial intelligence capabilities of 10+ peer banks</li>
+              <li>Achieved first place in the 2024 Regions Bank AWS GameDay Hackathon</li>
+            </ul>
+          </div>
+        </section>
+
+        <section class="card" id="projects">
+          <h2>Projects</h2>
+
+          <div class="item">
+            <div class="item-head">
+              <p class="item-title">
+                <a
+                  href="https://github.com/alexanderparks/Evaluating-Political-Bias-in-Popular-Generative-LLMs"
+                  target="_blank"
+                  rel="noreferrer"
+                  >Political Bias in Popular Generative LLMs</a
+                >
+              </p>
+            </div>
+            <ul>
+              <li>Engineered a dataset of 750+ sentence prefixes by scraping news websites</li>
+              <li>Utilized 4 GPT models from Hugging Face and OpenAI API for sentence completion</li>
+              <li>
+                Performed a sentiment analysis on sentence prefixes and suffixes to measure bias in
+                model output using Pandas and the Hugging Face sentiment metric
+              </li>
+            </ul>
+          </div>
+
+          <div class="item">
+            <div class="item-head">
+              <p class="item-title">
+                <a
+                  href="https://github.com/alexanderparks/Spanish-Energy-Market-Prediction"
+                  target="_blank"
+                  rel="noreferrer"
+                  >Spanish Energy Market Prediction</a
+                >
+              </p>
+            </div>
+            <ul>
+              <li>
+                Assembled a dataset of 80+ features by combining Spanish energy and weather datasets
+                over a 4 year span, using correlation analysis and Pandas for feature engineering
+              </li>
+              <li>
+                Developed an ensemble of random forest, regression, and KNN models after testing
+                the performance of 7 initial models
+              </li>
+              <li>Predicted the price of energy in Spain with an R-squared value of 0.933</li>
+            </ul>
+          </div>
+
+          <div class="item">
+            <div class="item-head">
+              <p class="item-title">
+                <a
+                  href="https://github.com/alexanderparks/DietRiot-Web-Application"
+                  target="_blank"
+                  rel="noreferrer"
+                  >DietRiot Web Application</a
+                >
+              </p>
+            </div>
+            <ul>
+              <li>
+                Built and deployed a React web application to provide users with bespoke recipe and
+                diet information
+              </li>
+              <li>
+                Utilized HTML, CSS, and TypeScript to create model pages and instance cards for each
+                recipe or diet
+              </li>
+              <li>
+                Constructed a RESTful API with Postman and generated 40+ unit tests for the API and
+                web application
+              </li>
+            </ul>
+          </div>
+
+          <div class="item">
+            <div class="item-head">
+              <p class="item-title">Personal Website</p>
+            </div>
+            <ul>
+              <li>
+                Designed and created a personal portfolio website using HTML for page content and
+                CSS for styling
+              </li>
+              <li>Implemented HTML elements such as images, headers, and anchors</li>
+            </ul>
+          </div>
+
+          <div class="item">
+            <div class="item-head">
+              <p class="item-title">Memory Management System</p>
+            </div>
+            <ul>
+              <li>
+                Designed and developed a dynamic storage allocator in C to mimic the malloc() and
+                free() functions used for memory management
+              </li>
+              <li>
+                Utilized bitwise operators and linked lists to ensure efficient alignment, padding,
+                and memory allocation
+              </li>
+            </ul>
+          </div>
+
+          <div class="item">
+            <div class="item-head">
+              <p class="item-title">Huffman Encoder/Decoder</p>
+            </div>
+            <ul>
+              <li>Constructed a Huffman encoder/decoder in Java using lists, maps, and binary search trees</li>
+              <li>
+                Modified an existing text-based and graphical user interface for users to choose
+                files to encode or decode
+              </li>
+            </ul>
+          </div>
+        </section>
+
+        <section class="card" id="leadership">
+          <h2>Leadership and Community Involvement</h2>
+
+          <div class="item">
+            <div class="item-head">
+              <p class="item-title">
+                Computer Science Transfers' Society (CSTS)<br />
+                <i>President (2024 - 2025), Treasurer (2023 - 2024), Member (2021 - 2025)</i>
+              </p>
+              <div class="item-meta">August 2021 - May 2025</div>
+            </div>
+            <ul>
+              <li>
+                Planned and budgeted events, such as transfer application and professional
+                workshops, officer meetings, and socials
+              </li>
+              <li>Designed, acquired, and distributed merchandise to 50+ active members</li>
+              <li>Authored and distributed an annual prospectus for both current and potential corporate sponsors</li>
+            </ul>
+          </div>
+
+          <div class="item">
+            <div class="item-head">
+              <p class="item-title">
+                Texas Iron Spikes<br />
+                <i>Administrative Officer (2023), Member (2021 - 2025)</i>
+              </p>
+              <div class="item-meta">August 2021 - May 2025</div>
+            </div>
+            <ul>
+              <li>Designed, acquired, and distributed merchandise to 100+ active members</li>
+              <li>
+                Collected and managed over $5,000 in purchase orders from members before distributing
+                merchandise
+              </li>
+              <li>
+                Engaged in a variety of service events and projects, such as park cleanups, gardening
+                programs, and meal drives
+              </li>
+            </ul>
+          </div>
+        </section>
+
+        <section class="card" id="honors">
+          <h2>Honors and Awards</h2>
+          <ul>
+            <li>Hispanic Scholarship Fund Scholar (Fall 2020/21/23/24)</li>
+            <li>Andersen Foundation Scholar (Fall 2024)</li>
+            <li>Eva Stevenson Woods Endowed Presidential Scholar (Fall 2024)</li>
+            <li>University Honors (Fall 2021/22/24, Spring 2022/23/24)</li>
+            <li>Bitar Family Endowed Scholar in Computer Science (Fall 2023)</li>
+            <li>National Merit Commended Scholar (Fall 2020)</li>
+            <li>National Hispanic Scholar (Fall 2020)</li>
+          </ul>
+        </section>
+      </div>
+    </main>
+  </body>
+</html>
